@@ -1,0 +1,34 @@
+Domain and Grid Validation:
+
+Check for a valid grid size and ensure it is consistent with the parent grid ratio.
+Verify that the domain is within the Earth's bounds (latitude: -90 to 90, longitude: -180 to 180).
+Check if the domain covers the area of interest, and if required, ensure nested domains are within the parent domain.
+Time Control Parameters:
+
+Validate the input start and end times.
+Check if the time step is appropriate for the chosen grid size and model stability.
+Confirm that the output interval is within the simulation period.
+Vertical Coordinate System:
+
+Ensure the number of vertical levels and the top model level are within acceptable ranges.
+Validate the selected vertical coordinate system (e.g., eta, sigma, or hybrid) based on the user's application.
+Physics Options:
+
+Validate the choice of microphysics, cumulus parameterization, and planetary boundary layer schemes based on the region's climate characteristics.
+Check the consistency of radiation and surface-layer schemes with other selected physics options.
+If required, verify the appropriate choice of lake, urban, and aerosol models.
+Dynamics Options:
+
+Validate the selected advection schemes for horizontal and vertical motions.
+Check if the chosen diffusion options are suitable for the user's research objectives.
+Nesting Options:
+
+Verify the nesting configurations, including one-way or two-way interaction and feedback options.
+Check if the time step ratio and parent grid ratio are consistent for the nested domains.
+Regional Adaptation:
+
+Ensure that the namelist parameters are adjusted according to the region's weather and climate characteristics (e.g., tropical vs. polar regions).
+If necessary, validate specific options such as the use of a topography-following coordinate system or the selection of high-resolution datasets for certain regions.
+Optional Model Configurations:
+
+Validate the use of specific options like lake models, urban canopy models, or ocean coupling if applicable to the user's study.
