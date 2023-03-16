@@ -53,7 +53,11 @@ class NamelistValidator:
             }
 
     def read_namelist(self):
-        self.user_nml = f90nml.read(StringIO(self.namelist_file.decode()))
+        if isinstance(self.namelist_file, str):
+            self.user_nml = f90nml.read(StringIO(self.namelist_file))
+        else:
+            self.user_nml = f90nml.read(StringIO(self.namelist_file.decode()))
+
 
 
     @staticmethod
