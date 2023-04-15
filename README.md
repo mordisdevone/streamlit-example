@@ -40,7 +40,9 @@ nesting_validator.validate_nesting_options()
 ```
 
 ## To do
--Error checking for reading/processing namelist and registry files
--Handle case where physics_suite isn’t set
--Could maybe have a dropdown to choose which version of AceCAST to use eventually
--Have an upload OR copy/paste text from namelist directly into the app 
+- [ ] Error checking for reading/processing namelist and registry files
+- [ ] Handle case where physics_suite isn’t set
+- [ ] Could maybe have a dropdown to choose which version of AceCAST to use eventually
+- [ ] Have an upload OR copy/paste text from namelist directly into the app 
+- [ ] A lot of people save namelists as something like `namelist.input_europe_1km`. Therefore, it is probably best not to enforce any file name conventions.
+- [ ] Account for `max_dom` when checking options that specify a specific value for each domain.
