@@ -62,17 +62,17 @@ class DomainGridValidation:
                 # Check if the domain covers the area of interest
                 if not (area_of_interest['min_lat'] >= min_lat and area_of_interest['max_lat'] <= max_lat and
                         area_of_interest['min_lon'] >= min_lon and area_of_interest['max_lon'] <= max_lon):
-                    raise ValueError(f"Domain {i+1} does not cover the area of interest.")
+                    self.errors.append(f"Domain {i+1} does not cover the area of interest.")
 
                 # Check if the nested domain is within the parent domain
                 if i > 0:
                     parent_domain = domains[i-1]
                     if not (parent_domain['min_lat'] <= min_lat and parent_domain['max_lat'] >= max_lat and
                             parent_domain['min_lon'] <= min_lon and parent_domain['max_lon'] >= max_lon):
-                        raise ValueError(f"Nested domain {i+1} is not within its parent domain.")
+                        self.errors.append(f"Nested domain {i+1} is not within its parent domain.")
 
         except KeyError as e:
-            raise KeyError(f"Missing key in namelist: {e}")
+            self.errors.append(f"Missing key in namelist: {e}")
 
     def run_validation(self):
         self.validate_grid_size()
