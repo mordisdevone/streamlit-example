@@ -8,13 +8,11 @@ from helpers.nesting_options_validation import NestingOptionsValidation
 import pandas as pd
 import io
 
-st.title("AceCast Namelist Advisor v0.7")
+st.title("Namelist Advisor for AceCAST v3.0.1")
 
 # Initialize the counter
 if 'check_namelist_count' not in st.session_state:
     st.session_state['check_namelist_count'] = 0
-
-
 
 # Initialize session state values
 if 'namelist_file' not in st.session_state:
@@ -24,18 +22,16 @@ if 'namelist_input' not in st.session_state:
     st.session_state['namelist_input'] = ''
 
 # File uploader
-st.session_state.namelist_file = st.file_uploader("Upload namelist file (FORTRAN namelist format)", type=["nml", "txt", "input"])
+st.session_state.namelist_file = st.file_uploader("Upload namelist file", type=None)
 
 # Text area for namelist input
-st.session_state.namelist_input = st.text_area("Or paste the contents of your namelist here", st.session_state.namelist_input)
+st.session_state.namelist_input = st.text_area("Or copy and paste the contents of your namelist here", st.session_state.namelist_input)
 
 # Check namelist button
 check_namelist_button = st.button("Check Namelist")
 
-
 # Display the counter value
 st.write(f"Check Namelist button clicked {st.session_state.check_namelist_count} times in this session.")
-
 
 if check_namelist_button:
     st.session_state.check_namelist_count += 1
@@ -63,7 +59,7 @@ if check_namelist_button:
         all_errors = [error for validator in [errors, domain_errors, vcs_errors, physics_errors, dynamics_errors, nesting_errors] for error in (validator if validator is not None else [])]
 
         if not all_errors:
-            st.success("Namelist validation success!")
+            st.success("Namelist validation success! All specified options are supported by AceCAST.")
         else:
             st.error("Namelist validation failure. One or more unsupported options found!")
             error_df = pd.DataFrame(all_errors)
