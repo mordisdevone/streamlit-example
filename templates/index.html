@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AceCast Namelist Advisor v0.7</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+</head>
+<body class="container mx-auto mt-8">
+    <h1 class="text-2xl font-bold mb-4">AceCast Namelist Advisor v0.7</h1>
+
+    <p class="mb-2">Check Namelist button clicked {{ count }} times in this session.</p>
+
+    <form class="mb-4" action="/" method="POST" enctype="multipart/form-data">
+        <div class="mb-2">
+            <input type="file" name="namelist_file" class="border rounded py-2 px-3">
+        </div>
+        <div class="mb-4">
+            <textarea name="namelist_input" rows="10" cols="80" class="border rounded py-2 px-3">{{ session['namelist_input'] }}</textarea>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" type="submit">Check Namelist</button>
+    </form>
+
+    {% if session['namelist_file'] or session['namelist_input'] %}
+        <h2 class="text-lg font-bold mb-2">Namelist Contents</h2>
+        <pre>{{ session['namelist_file'].read().decode() if session['namelist_file'] else session['namelist_input'] }}</pre>
+    {% endif %}
+
+    {% if result %}
+        <div class="my-6">
+            {% if 'Namelist validation success!' in result %}
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">{{ result }}</div>
+            {% else %}
+                <h2 class="text-lg font-bold mb-2">Namelist Validation Errors</h2>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <pre><code class="text-gray-800">{{ result | safe }}</code></pre>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+
+
+  
+    
+
+
+</body>
+</html>
