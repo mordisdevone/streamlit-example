@@ -2,7 +2,6 @@ import json
 import f90nml
 from io import StringIO
 
-
 class NamelistValidator:
     def __init__(self, registry_file, namelist_file):
         self.errors = []
@@ -13,18 +12,39 @@ class NamelistValidator:
         else:
             self.registry_file = registry_file.read()
 
-        # self.namelist_file = namelist_file.read()
-
-        self.namelist_file = namelist_file
-
-        self.user_nml = f90nml.read(StringIO(self.namelist_file))
-
+        if isinstance(namelist_file, str):
+            self.namelist_file = namelist_file
+        else:
+            self.namelist_file = namelist_file.read().decode()
 
         self.nml_cfg = {}
         self.user_nml = None
         self.supported_nml = True
         self.load_registry()
         self.read_namelist()
+
+# class NamelistValidator:
+#     def __init__(self, registry_file, namelist_file):
+#         self.errors = []
+
+#         if isinstance(registry_file, str):
+#             with open(registry_file, 'r') as f:
+#                 self.registry_file = f.read()
+#         else:
+#             self.registry_file = registry_file.read()
+
+#         # self.namelist_file = namelist_file.read()
+
+#         self.namelist_file = namelist_file
+
+#         self.user_nml = f90nml.read(StringIO(self.namelist_file))
+
+
+#         self.nml_cfg = {}
+#         self.user_nml = None
+#         self.supported_nml = True
+#         self.load_registry()
+#         self.read_namelist()
 
     def load_registry(self):
         registry = json.loads(self.registry_file)
