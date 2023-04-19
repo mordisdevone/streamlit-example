@@ -38,9 +38,10 @@ def index():
             # Convert the input text to a file-like buffer if input is from text area
             # namelist_buffer = StringIO(text) if text else file
 
+            # Convert the input text to a file-like buffer if input is from text area
             namelist_buffer = StringIO(text) if text else file
 
-            validator = NamelistValidator("registry-v3.0.1.json", namelist_buffer.read())
+            validator = NamelistValidator("registry-v3.0.1.json", namelist_buffer)
 
 
 
