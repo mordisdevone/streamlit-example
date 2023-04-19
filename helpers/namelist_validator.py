@@ -13,7 +13,12 @@ class NamelistValidator:
         else:
             self.registry_file = registry_file.read()
 
-        self.namelist_file = namelist_file.read()
+        # self.namelist_file = namelist_file.read()
+
+        self.namelist_file = namelist_file
+
+        self.user_nml = f90nml.read(StringIO(self.namelist_file))
+
 
         self.nml_cfg = {}
         self.user_nml = None
