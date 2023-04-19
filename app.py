@@ -36,9 +36,14 @@ def index():
             session['result'] = "Please upload a file or enter text."
         else:
             # Convert the input text to a file-like buffer if input is from text area
+            # namelist_buffer = StringIO(text) if text else file
+
             namelist_buffer = StringIO(text) if text else file
 
-            validator = NamelistValidator("registry-v3.0.1.json", namelist_buffer)
+            validator = NamelistValidator("registry-v3.0.1.json", namelist_buffer.read())
+
+
+
             domain_validator = DomainGridValidation(validator.user_nml)
             vcs_validator = VerticalCoordinateValidation(validator.user_nml)
             physics_validator = PhysicsConsistencyValidation(validator.user_nml)
