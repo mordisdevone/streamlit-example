@@ -1,2 +1,2 @@
-python=3.11
+python=3.9.7
 flask=2.2.3
