@@ -9,6 +9,8 @@ from helpers.physics_consistency_validation import PhysicsConsistencyValidation
 from helpers.dynamics_options_validation import DynamicsOptionsValidation
 from helpers.nesting_options_validation import NestingOptionsValidation
 
+from tempfile import NamedTemporaryFile
+
 app = Flask(__name__)
 app.secret_key = "secret_key"
 
@@ -28,6 +30,22 @@ def index():
     session.setdefault('namelist_input', '')
     session.setdefault('result', '')
 
+    # if request.method == 'POST':
+    #     file = request.files['namelist_file']
+    #     text = request.form['namelist_input']
+
+    #     if not file and not text:
+    #         session['result'] = "Please upload a file or enter text."
+    #     else:
+    #         # Convert the input text to a file-like buffer if input is from text area
+    #         # namelist_buffer = StringIO(text) if text else file
+
+    #         # Convert the input text to a file-like buffer if input is from text area
+    #         namelist_buffer = StringIO(text) if text else file
+
+    #         validator = NamelistValidator("registry-v3.0.1.json", namelist_buffer)
+
+
     if request.method == 'POST':
         file = request.files['namelist_file']
         text = request.form['namelist_input']
@@ -36,12 +54,20 @@ def index():
             session['result'] = "Please upload a file or enter text."
         else:
             # Convert the input text to a file-like buffer if input is from text area
-            # namelist_buffer = StringIO(text) if text else file
+            if text:
+                namelist_buffer = StringIO(text)
+                namelist_file = NamedTemporaryFile(delete=False)
+                namelist_file.write(namelist_buffer.getvalue().encode())
+                namelist_file_path = namelist_file.name
+                namelist_file.close()
+            else:
+                namelist_file = NamedTemporaryFile(delete=False)
+                file.save(namelist_file)
+                namelist_file_path = namelist_file.name
+                namelist_file.close()
 
-            # Convert the input text to a file-like buffer if input is from text area
-            namelist_buffer = StringIO(text) if text else file
+            validator = NamelistValidator("registry-v3.0.1.json", namelist_file_path)
 
-            validator = NamelistValidator("registry-v3.0.1.json", namelist_buffer)
 
 
 
